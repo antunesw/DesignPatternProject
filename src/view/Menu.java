@@ -145,7 +145,7 @@ public class Menu {
     public void saveCountryInToDB() {
     }
 
-    ;
+
 
     Country newCountry = null;
 
@@ -155,6 +155,24 @@ public class Menu {
     String headOfState;
     float surfaceArea;
 
+    public double getSANameFromUser(){
+        System.out.println("Type in surface area ");
+        double area =0;
+        boolean exit = false ;
+
+        while (! exit){
+                try {
+
+                    area = Double.parseDouble(input.nextLine().replaceAll(" ",""))
+                     exit = true;
+                }catch (Exception e){
+                    System.out.println(e);
+                }catch (NumberFormatException e){
+                    System.out.println("integer and floating point numbers only ");
+                }
+        }
+        return area;
+    }
     public String getCodeFromUser() {
 
         System.out.println("Type in Country Code between 1 to 3 char");
@@ -174,6 +192,14 @@ public class Menu {
         return countryCode;
     }
 
+   public Continent getContinentFromUser(){
+
+        Continent continet = null;
+
+
+
+        return continet;
+   }
     public String getCountryNameFromUser() {
 
         System.out.println("Enter the country name ");
@@ -190,6 +216,8 @@ public class Menu {
         }
         return countryName;
     }
+
+
 
 }
 

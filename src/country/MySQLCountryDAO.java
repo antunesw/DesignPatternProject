@@ -61,7 +61,11 @@ public class MySQLCountryDAO implements CountryDAO {
         try {
             ResultSet rs = db.select(query);
 
-            if (rs.next()) {
+            while (rs.next()) {
+                String continentName = rs.getString(3);
+                if (continentName.isBlank()) {
+                    continue;
+                }
                 code = rs.getString(1);
                 headOfState = rs.getString(5);
                 surfaceArea = rs.getDouble(4);
@@ -69,10 +73,7 @@ public class MySQLCountryDAO implements CountryDAO {
 
                 country = new Country(code, countryName, continent, surfaceArea, headOfState);
                 countryList.add(country);
-            } else {
-                return null;
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -94,6 +95,10 @@ public class MySQLCountryDAO implements CountryDAO {
             ResultSet rs = db.select(query);
 
             if (rs.next()) {
+                    String continentName = rs.getString(3);
+                if (continentName.isBlank()){
+                        return null;
+                }
                 name = rs.getString(2);
                 headOfState = rs.getString(5);
                 surfaceArea = rs.getDouble(4);
