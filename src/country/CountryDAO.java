@@ -4,11 +4,11 @@ import java.util.ArrayList;
 
 public interface CountryDAO {
 
-    public ArrayList<Country>retrieveCountry();
+    public ArrayList<Country>getListOfCountries();
 
-    public Country getCountryByName(String countryName);
+    public ArrayList<Country> getCountryByName(String countryName);
 
-    public Country getCountryByCode(double code);
+    public Country getCountryByCode(String code);
 
     public boolean saveCountryInToDB(Country country);
 

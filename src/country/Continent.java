@@ -2,13 +2,22 @@ package country;
 
 public enum Continent {
 
-    AFRICA,
-    ANTARCTICA,
-    ASIA,
-    EUROPE,
-    NORTH_AMERICA,
-    SOUTH_AMERICA,
-    OCEANIA;
+    AFRICA ("AFRICA"),
+    ANTARCTICA("ANTARCTICA"),
+    ASIA("ASIA"),
+    EUROPE("EUROPE"),
+    NORTH_AMERICA("NORTH AMERICA"),
+    SOUTH_AMERICA("SOUTH AMERICA"),
+    OCEANIA("OCEANIA");
 
+    private final String message;
 
+        Continent(String message){
+            this.message = message;
+        }
+
+    @Override
+    public String toString() {
+        return this.message;
+    }
 }

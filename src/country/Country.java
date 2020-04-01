@@ -1,9 +1,12 @@
 package country;
 
+import java.util.Iterator;
+
 public class Country {
 
     private String code;
     private  String name;
+    private Continent continent;
     private String headOfState;
     private double surfaceArea;
 
@@ -14,14 +17,14 @@ public class Country {
      * @param headOfState
      * @param surfaceArea
      */
-    public Country(String code,String name,String headOfState, double surfaceArea){
+    public Country(String code,String name,Continent continent, double surfaceArea,String headOfState) {
 
         this.code = code;
         this.name = name;
         this.headOfState = headOfState;
         this.surfaceArea = surfaceArea;
+        this.continent = continent;
     }
-
     /**GETTERS AND SETTERS
      *
      */
@@ -49,6 +52,14 @@ public class Country {
         this.headOfState = headOfState;
     }
 
+    public Continent getContinent() {
+        return continent;
+    }
+
+    public void setContinent(Continent continent) {
+        this.continent = continent;
+    }
+
     public double getSurfaceArea() {
         return surfaceArea;
     }
@@ -63,10 +74,13 @@ public class Country {
      */
     @Override
     public String toString() {
-        return "____Country___" +
-                "code=' " + code + '\'' +
-                "name=' " + name + '\'' +
-                "headOfState=' " + headOfState + '\'' +
-                "surfaceArea= " + surfaceArea ;
+
+        return "-----Country----" +'\n'+
+                " code= " + code +
+                " name= " + name  +
+                " continent= " + continent +
+                " headOfState= " + headOfState +
+                " surfaceArea= " + surfaceArea +'\n' ;
     }
+    Iterator<Country> countryIterator;
 }
