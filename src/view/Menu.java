@@ -135,7 +135,7 @@ public class Menu {
         String code = getCodeFromUser();
         Country country = countryDAO.getCountryByCode(code);
         if (country != null) {
-            System.out.println(country);
+            System.out.println(country.toString());
         } else {
             System.out.println("country not found.");
         }
@@ -143,33 +143,41 @@ public class Menu {
     }
 
     public void saveCountryInToDB() {
+
+        String code = getCodeFromUser();
+        String name = getCountryNameFromUser();
+       // String headOfState =
+            //    String surfaceArea ="";
+
+
+
     }
 
 
 
-    Country newCountry = null;
-
-    String countryCode;
-    String countryName;
-    Continent continentOfCountry;
-    String headOfState;
-    float surfaceArea;
+//    Country newCountry = null;
+//
+//    String countryCode;
+//    String countryName;
+//    Continent continentOfCountry;
+//    String headOfState;
+//    float surfaceArea;
 
     public double getSANameFromUser(){
         System.out.println("Type in surface area ");
         double area =0;
         boolean exit = false ;
 
+        try {
         while (! exit){
-                try {
 
-                    area = Double.parseDouble(input.nextLine().replaceAll(" ",""))
+
+                    area = Double.parseDouble(input.nextLine().replaceAll(" ",""));
                      exit = true;
-                }catch (Exception e){
-                    System.out.println(e);
+                }
                 }catch (NumberFormatException e){
                     System.out.println("integer and floating point numbers only ");
-                }
+
         }
         return area;
     }
@@ -207,6 +215,7 @@ public class Menu {
 
 
         try {
+
 
             countryName = input.nextLine().replaceAll(" ", "");
 
