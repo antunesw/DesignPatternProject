@@ -2,8 +2,16 @@ package country;
 
 import java.util.Iterator;
 
+/**
+ * @Author Willian Antunes de Sousa
+ *Country class with Builder Pattern implemented
+ *
+ */
+
+
 public class Country {
 
+    //Variables related to those one found in the database.
     private String code;
     private  String name;
     private Continent continent;
@@ -18,7 +26,7 @@ public class Country {
      * @param surfaceArea
      */
     public Country(String code,String name,Continent continent, double surfaceArea,String headOfState) {
-
+      //  super();
         this.code = code;
         this.name = name;
         this.headOfState = headOfState;
@@ -32,41 +40,23 @@ public class Country {
         return code;
     }
 
-    public void setCode(String code) {
-        this.code = code;
-    }
-
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getHeadOfState() {
         return headOfState;
     }
 
-    public void setHeadOfState(String headOfState) {
-        this.headOfState = headOfState;
-    }
 
     public Continent getContinent() {
         return continent;
-    }
-
-    public void setContinent(Continent continent) {
-        this.continent = continent;
     }
 
     public double getSurfaceArea() {
         return surfaceArea;
     }
 
-    public void setSurfaceArea(double surfaceArea) {
-        this.surfaceArea = surfaceArea;
-    }
 
     /**
      * returns the object in a String format
@@ -76,11 +66,11 @@ public class Country {
     public String toString() {
 
         return "-----Country----" +'\n'+
-                " code= " + code +
-                " name= " + name  +
-                " continent= " + continent +
-                " headOfState= " + headOfState +
+                " code= " + code +'\n'+
+                " name= " + name  +'\n'+
+                " continent= " + continent+'\n'+
+                " headOfState= " + headOfState +'\n'+
                 " surfaceArea= " + surfaceArea +'\n' ;
     }
-    Iterator<Country> countryIterator;
+
 }

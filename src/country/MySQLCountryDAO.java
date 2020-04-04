@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class MySQLCountryDAO implements CountryDAO {
 
 
-    DB_Connect db = new DB_Connect();
+    DB_Connect db = DB_Connect.getInstance()  ;
 
     @Override
     public ArrayList<Country> getListOfCountries() {

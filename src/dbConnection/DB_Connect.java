@@ -3,15 +3,16 @@ package dbConnection;
 import java.sql.*;
 
 /**@Author Willian Antunes de Sousa 2017226
- *DB_Connect Class using Singleton Desidn Pattern
- *the singleton design pattern was implemeted becouse it restricts the instatiation of this class
+ *
+ *DB_Connect Class using Singleton Design Pattern
+ *the singleton design pattern was implemented because it restricts the instantiation of this class
  *therefore permitting just one instance of it to be used in this **environment,
  */
 
 public class DB_Connect {
     //Parameters for database access along with an instance o this class needed for the Singleton pattern design implementation
 
-    private static DB_Connect instance;
+    static DB_Connect instance ;
     private Connection conn;
     private Statement stmt;
     private ResultSet rs = null;
@@ -19,12 +20,10 @@ public class DB_Connect {
     private String userName = "cctstudent";
     private String password = "Pass1234!";
 
-    /**
-     * //to de done: private constructor
-     */
-    public DB_Connect() {
-        //
 
+    private DB_Connect() {
+        //establishing connection to the server parameters server, username and password were used.
+        //try catch block for handling any error that may occur when establishing connection
         try {
             conn = DriverManager.getConnection(server, userName, password);
 
@@ -32,7 +31,7 @@ public class DB_Connect {
 
 
         } catch (SQLException se) {
-            System.out.println("SQL exceptiom ");
+            System.out.println("SQL exception ");
             //loop through SQL exceptions
             while (se != null) {
                 System.out.println("State :" + se.getSQLState());
@@ -45,18 +44,26 @@ public class DB_Connect {
         }
     }
 
+    /**
+     *
+     * @return the instance of the connection
+     */
     public static DB_Connect getInstance() {
         if (instance == null) {
             instance = new DB_Connect();
         }
-        return instance;
+        return DB_Connect.instance;
     }
 
     public Connection getConnection() {
         return conn;
     }
 
-
+    /**
+     *
+     * @param query SQL query INSERT is passed as String
+     * @return true or false
+     */
     public boolean saveData(String query) {
 
         try {
@@ -69,6 +76,11 @@ public class DB_Connect {
 
     }
 
+    /**
+     *
+     * @param query   SQL query SELECT is passed as String
+     * @return the Resultset from database
+     */
     public ResultSet select(String query) {
 
         try {
@@ -83,7 +95,7 @@ public class DB_Connect {
     }
 
     /**
-     * close connection when it's called
+     * it closes the connection when called
      */
     public void closing() {
         //closing the result set, statement and the connection
@@ -92,8 +104,6 @@ public class DB_Connect {
             rs.close();
             stmt.close();
             conn.close();
-            //check the correct way of closing (conn)
-            // DB_Connect.getInstance().getConnection().close();
         } catch (SQLException e) {
             e.printStackTrace();
         }

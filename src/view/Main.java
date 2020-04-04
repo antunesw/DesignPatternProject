@@ -1,5 +1,8 @@
 package view;
 
+import country.Continent;
+import country.Country;
+import country.CountryBuilder;
 import country.MySQLCountryDAO;
 import dbConnection.DB_Connect;
 
@@ -16,13 +19,14 @@ public class Main {
 
     public static void main(String[] args) {
 
-
-        Menu menu = new Menu();
-//        menu.printMenuHeader();
-//        menu.printMenu();
-        menu.runMenu();
-//        MySQLCountryDAO test = new MySQLCountryDAO();
-//        System.out.println(test.getCountry());
+        Country country = new CountryBuilder().setCode("123").setHeadOfState("Morty").setName("Bira").setSurfaceArea(1234).getCountry();
+        System.out.println(country);
+      //  Menu menu = new Menu();
+////        menu.printMenuHeader();
+////        menu.printMenu();
+//        menu.runMenu();
+////        MySQLCountryDAO test = new MySQLCountryDAO();
+////        System.out.println(test.getCountry());
 
     }
 }
