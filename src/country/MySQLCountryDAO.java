@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class MySQLCountryDAO implements CountryDAO {
 
 
-    DB_Connect db = DB_Connect.getInstance()  ;
+    DB_Connect db = DB_Connect.getInstance();
 
     @Override
     public ArrayList<Country> getListOfCountries() {
@@ -38,8 +38,8 @@ public class MySQLCountryDAO implements CountryDAO {
                 surfaceArea = rs.getDouble(4);
                 continent = Continent.valueOf(rs.getString(3).replace(" ", "_").toUpperCase());
 
-                country = new Country(code, name, continent, surfaceArea, headOfState);
-                countriesList.add(country);
+                Country.CountryBuilder cBuilder = new Country.CountryBuilder().setContinent(continent).setCode(code).setHeadOfState(headOfState).setName(name).setSurfaceArea(surfaceArea);
+                countriesList.add(cBuilder.build());
             }
 
         } catch (SQLException e) {
@@ -51,9 +51,12 @@ public class MySQLCountryDAO implements CountryDAO {
 
     @Override
     public ArrayList<Country> getCountryByName(String countryName) {
-        ArrayList<Country> countryList = new ArrayList<Country>();
-        String query = "SELECT * FROM country WHERE Name LIKE '%"+countryName+"%';";
-        Country country = null;
+
+        ArrayList<Country> countriesList = new ArrayList<Country>();
+
+        String query = "SELECT * FROM country WHERE Name LIKE '%" + countryName + "%';";
+
+        String name="";
         Continent continent;
         String code = "";
         String headOfState = "";
@@ -71,21 +74,24 @@ public class MySQLCountryDAO implements CountryDAO {
                 surfaceArea = rs.getDouble(4);
                 continent = Continent.valueOf(rs.getString(3).replace(" ", "_").toUpperCase());
 
-                country = new Country(code, countryName, continent, surfaceArea, headOfState);
-                countryList.add(country);
+                Country.CountryBuilder cBuilder = new Country.CountryBuilder().setContinent(continent).setCode(code).setHeadOfState(headOfState).setName(name).setSurfaceArea(surfaceArea);
+                countriesList.add(cBuilder.build());
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return countryList;
+        return countriesList;
 
     }
 
+    /**
+     * @param code
+     * @return
+     */
     @Override
     public Country getCountryByCode(String code) {
-        Country country = null;
-//"SELECT * FROM country WHERE Name LIKE '%"+countryName+"%';";
-        String query = "SELECT * FROM country WHERE Code LIKE '%"+code+"%';";
+
+        String query = "SELECT * FROM country WHERE Code LIKE '%" + code + "%';";
 
         Continent continent;
         String name = "";
@@ -95,17 +101,17 @@ public class MySQLCountryDAO implements CountryDAO {
             ResultSet rs = db.select(query);
 
             if (rs.next()) {
-                    String continentName = rs.getString(3);
-                if (continentName.isBlank()){
-                        return null;
+                String continentName = rs.getString(3);
+                if (continentName.isBlank()) {
+                    return null;
                 }
                 name = rs.getString(2);
                 headOfState = rs.getString(5);
                 surfaceArea = rs.getDouble(4);
                 continent = Continent.valueOf(rs.getString(3).replace(" ", "_").toUpperCase());
 
-                country = new Country(code, name, continent, surfaceArea, headOfState);
-
+                Country.CountryBuilder cBuilder = new Country.CountryBuilder().setContinent(continent).setCode(code).setHeadOfState(headOfState).setName(name).setSurfaceArea(surfaceArea);
+                return cBuilder.build();
             } else {
                 return null;
             }
@@ -113,8 +119,7 @@ public class MySQLCountryDAO implements CountryDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return country;
-
+    return null;
     }
 
     @Override

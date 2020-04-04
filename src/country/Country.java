@@ -10,7 +10,6 @@ import java.util.Iterator;
 
 
 public class Country {
-
     //Variables related to those one found in the database.
     private String code;
     private  String name;
@@ -25,13 +24,13 @@ public class Country {
      * @param headOfState
      * @param surfaceArea
      */
-    public Country(String code,String name,Continent continent, double surfaceArea,String headOfState) {
-      //  super();
-        this.code = code;
-        this.name = name;
-        this.headOfState = headOfState;
-        this.surfaceArea = surfaceArea;
-        this.continent = continent;
+    private Country(CountryBuilder countryBuilder) {
+      // super();
+        this.code = countryBuilder.code;
+        this.name = countryBuilder.name;
+        this.headOfState = countryBuilder.headOfState;
+        this.surfaceArea = countryBuilder.surfaceArea;
+        this.continent = countryBuilder.continent;
     }
     /**GETTERS AND SETTERS
      *
@@ -73,4 +72,46 @@ public class Country {
                 " surfaceArea= " + surfaceArea +'\n' ;
     }
 
+    public static class CountryBuilder {
+
+        private String code;
+        private  String name;
+        private Continent continent;
+        private String headOfState;
+        private double surfaceArea;
+
+        public  CountryBuilder setCode(String code) {
+            this.code = code;
+            return this;
+        }
+
+        public CountryBuilder setName(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public CountryBuilder setContinent(Continent continent) {
+            this.continent = continent;
+            return this;
+        }
+
+        public CountryBuilder setHeadOfState(String headOfState) {
+            this.headOfState = headOfState;
+            return this;
+
+        }
+
+        public CountryBuilder setSurfaceArea(double surfaceArea) {
+            this.surfaceArea = surfaceArea;
+            return this;
+        }
+
+
+
+        public Country build(){
+
+            return  new Country(this);
+        }
+
+    }
 }
