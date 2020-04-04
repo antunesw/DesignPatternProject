@@ -20,4 +20,9 @@ public enum Continent {
     public String toString() {
         return this.message;
     }
+
+//        public static Continent getEnum(String  continentString){
+//            for
+//        }
+
 }

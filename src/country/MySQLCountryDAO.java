@@ -52,7 +52,7 @@ public class MySQLCountryDAO implements CountryDAO {
     @Override
     public ArrayList<Country> getCountryByName(String countryName) {
         ArrayList<Country> countryList = new ArrayList<Country>();
-        String query = "SELECT * FROM country WHERE Name = \"" + countryName + "\";";
+        String query = "SELECT * FROM country WHERE Name LIKE '%"+countryName+"%';";
         Country country = null;
         Continent continent;
         String code = "";
@@ -84,8 +84,8 @@ public class MySQLCountryDAO implements CountryDAO {
     @Override
     public Country getCountryByCode(String code) {
         Country country = null;
-
-        String query = "SELECT * FROM country WHERE Code = \"" + code + "\"";
+//"SELECT * FROM country WHERE Name LIKE '%"+countryName+"%';";
+        String query = "SELECT * FROM country WHERE Code LIKE '%"+code+"%';";
 
         Continent continent;
         String name = "";

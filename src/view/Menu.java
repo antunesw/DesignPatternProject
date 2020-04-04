@@ -4,12 +4,14 @@ import country.Continent;
 import country.Country;
 import country.CountryDAO;
 import country.MySQLCountryDAO;
+import dbConnection.DB_Connect;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Scanner;
 
 public class Menu {
+    private DB_Connect conn;
     private CountryDAO countryDAO = new MySQLCountryDAO();
     Scanner input = new Scanner(System.in);
     boolean exit;
@@ -90,6 +92,7 @@ public class Menu {
                 break;
             case 5:
                 System.out.println("Bye!");
+                conn.closing();
                 exit = true;
                 break;
             default:
@@ -105,13 +108,13 @@ public class Menu {
         ArrayList<Country> listAllCountries = countryDAO.getListOfCountries();
 
         Iterator<Country> countryIterator = listAllCountries.iterator();
-    if(listAllCountries.size() > 0) {
-        while (countryIterator.hasNext()) {
-            System.out.println(countryIterator.next());
+        if (listAllCountries.size() > 0) {
+            while (countryIterator.hasNext()) {
+                System.out.println(countryIterator.next());
+            }
+        } else {
+            System.out.println("Not Found");
         }
-    }else {
-        System.out.println("Not Found");
-    }
     }
 
     public void getCountryByName() {
@@ -137,7 +140,7 @@ public class Menu {
         if (country != null) {
             System.out.println(country.toString());
         } else {
-            System.out.println("country not found.");
+            System.out.println("country code not found.");
         }
 
     }
@@ -146,13 +149,11 @@ public class Menu {
 
         String code = getCodeFromUser();
         String name = getCountryNameFromUser();
-       // String headOfState =
-            //    String surfaceArea ="";
-
+        // String headOfState =
+        //    String surfaceArea ="";
 
 
     }
-
 
 
 //    Country newCountry = null;
@@ -163,36 +164,41 @@ public class Menu {
 //    String headOfState;
 //    float surfaceArea;
 
-    public double getSANameFromUser(){
+    public double getSANameFromUser() {
         System.out.println("Type in surface area ");
-        double area =0;
-        boolean exit = false ;
+        double area = 0;
+        boolean exit = false;
 
         try {
-        while (! exit){
+            while (!exit) {
 
 
-                    area = Double.parseDouble(input.nextLine().replaceAll(" ",""));
-                     exit = true;
-                }
-                }catch (NumberFormatException e){
-                    System.out.println("integer and floating point numbers only ");
+                area = Double.parseDouble(input.nextLine().replaceAll(" ", ""));
+                exit = true;
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("integer and floating point numbers only ");
 
         }
         return area;
     }
-    public String getCodeFromUser() {
 
+    public String getCodeFromUser() {
+        boolean exit = false;
         System.out.println("Type in Country Code between 1 to 3 char");
         String countryCode = "";
 
-        countryCode = input.nextLine().replaceAll(" ", "");
         try {
 
-
-            while (countryCode.length() > 3 || countryCode.isBlank()) {
-                //if()else please validate for many letters try to do it
-                countryCode = input.nextLine().replaceAll(" ", "");
+            while (!exit) {
+                //if()else please validate for many letters try to do itcountryCode = input.nextLine().replaceAll(" ", "");
+                if (countryCode.length() > 0 || countryCode.length() < 3) {
+                    countryCode = input.nextLine().replaceAll(" ", "");
+                    exit = true;
+                } else {
+                    System.out.println("1 to 3 characters input only");
+                    runMenu();
+                }
             }
         } catch (Exception e) {
             System.out.println(e);
@@ -200,14 +206,14 @@ public class Menu {
         return countryCode;
     }
 
-   public Continent getContinentFromUser(){
+    public Continent getContinentFromUser() {
 
         Continent continet = null;
 
 
-
         return continet;
-   }
+    }
+
     public String getCountryNameFromUser() {
 
         System.out.println("Enter the country name ");
@@ -225,7 +231,6 @@ public class Menu {
         }
         return countryName;
     }
-
 
 
 }

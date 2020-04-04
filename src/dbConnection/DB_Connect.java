@@ -2,8 +2,14 @@ package dbConnection;
 
 import java.sql.*;
 
+/**@Author Willian Antunes de Sousa 2017226
+ *DB_Connect Class using Singleton Desidn Pattern
+ *the singleton design pattern was implemeted becouse it restricts the instatiation of this class
+ *therefore permitting just one instance of it to be used in this **environment,
+ */
 
 public class DB_Connect {
+    //Parameters for database access along with an instance o this class needed for the Singleton pattern design implementation
 
     private static DB_Connect instance;
     private Connection conn;
@@ -39,16 +45,16 @@ public class DB_Connect {
         }
     }
 
-//    public static DB_Connect getInstance() {
-//        if (instance == null) {
-//            instance = new DB_Connect();
-//        }
-//        return instance;
-//    }
-//
-//    public Connection getConnection() {
-//        return conn;
-//    }
+    public static DB_Connect getInstance() {
+        if (instance == null) {
+            instance = new DB_Connect();
+        }
+        return instance;
+    }
+
+    public Connection getConnection() {
+        return conn;
+    }
 
 
     public boolean saveData(String query) {
