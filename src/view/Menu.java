@@ -150,7 +150,7 @@ public class Menu {
 
 
     }
-
+    //method responsible for  returning the countries according to values passed by the user
     public void getCountryByCode() {
         System.out.println("Type in Country Code: ");
        String countryCode = checkUserInput();
@@ -167,9 +167,9 @@ public class Menu {
 
     public void saveCountryInToDB() {
         System.out.println("##ADD a new country to the database###");
+        //methods responsible to bring the data that forms the country obj.
 
         String code = getCodeFromUser();
-
         String name = getCountryNameFromUser();
         Double surfaceArea = getSANameFromUser();
         String headOfState = getHeadOfStateFromUser();
@@ -177,13 +177,13 @@ public class Menu {
 
         Country.CountryBuilder countryBuilder = new Country.CountryBuilder(code, name,continent,surfaceArea,headOfState);
 
-
+        //this method receives the country created  and store it on the database according to the data.
         countryDAO.saveCountryInToDB(countryBuilder.build());
         runMenu();
 
     }
 
-    //getting the head of state's name from the user and validating it
+    //getting the head of state's name from the user validating and returning it
     public String getHeadOfStateFromUser() {
 
         System.out.println("Type in Head of State's name ");
@@ -197,7 +197,7 @@ public class Menu {
         return headOfState;
     }
 
-        //getting surface area from user and doing some validation
+    //getting the surface area  from the user validating and returning it
         public double getSANameFromUser() {
         System.out.println("Type in surface Area: ");
 
@@ -211,7 +211,7 @@ public class Menu {
         return Double.parseDouble(countryArea);
 
     }
-    //getting Code from user and checking if it matches the validation set in codeValidation method
+    //getting code from the user validating and returning it
     public String getCodeFromUser() {
 
         System.out.println("Type in Country Code: ");
@@ -228,7 +228,7 @@ public class Menu {
         return countryCode;
 
    }
-    //getting continent name from user
+    //getting continent name from user validating and returning it
     public Continent getContinentFromUser() {
         Continent continent = null;
         String continentInput;
@@ -245,7 +245,7 @@ public class Menu {
 
         return continent;
     }
-
+//method that gets the user input validates it and return if found
     public String getCountryNameFromUser() {
 
         System.out.println("Enter the country name ");
@@ -260,6 +260,7 @@ public class Menu {
         return getCountryNameFromUser();
     }
 
+    //this method gets the input from scanner so that can be reused in other calls
     public   String checkUserInput(){
          String validate ;
 
@@ -273,6 +274,7 @@ public class Menu {
         }
             return checkUserInput();
     }
+   //method responsible for validating input size and also if input code matches letters and numbers returning true or false depending on the result
     public static boolean codeValidation(String code) {
 
             if ( code.length() != 3) {

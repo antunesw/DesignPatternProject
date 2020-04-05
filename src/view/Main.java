@@ -1,6 +1,8 @@
 package view;
 
-import country.MySQLCountryDAO;
+/**
+ * @Author Willian Antunes de Sousa
+ */
 
 import java.sql.Connection;
 import java.sql.Statement;
