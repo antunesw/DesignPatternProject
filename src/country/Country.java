@@ -4,15 +4,14 @@ import java.util.Iterator;
 
 /**
  * @Author Willian Antunes de Sousa
- *Country class with Builder Pattern implemented
- *
+ * Country class with Builder Pattern implemented
  */
 
 
 public class Country {
     //Variables related to those one found in the database.
     private String code;
-    private  String name;
+    private String name;
     private Continent continent;
     private String headOfState;
     private double surfaceArea;
@@ -27,8 +26,9 @@ public class Country {
         this.surfaceArea = countryBuilder.surfaceArea;
         this.continent = countryBuilder.continent;
     }
-    /**GETTERS
-     *
+
+    /**
+     * GETTERS
      */
     public String getCode() {
         return code;
@@ -54,39 +54,42 @@ public class Country {
 
     /**
      * returns the object in a String format
+     *
      * @return
      */
     @Override
     public String toString() {
 
-        return "-----Country----" +'\n'+
-                " code= " + code +'\n'+
-                " name= " + name  +'\n'+
-                " continent= " + continent+'\n'+
-                " headOfState= " + headOfState +'\n'+
-                " surfaceArea= " + surfaceArea +'\n' ;
+        return "-----Country----" + '\n' +
+                " code= " + code + '\n' +
+                " name= " + name + '\n' +
+                " continent= " + continent + '\n' +
+                " headOfState= " + headOfState + '\n' +
+                " surfaceArea= " + surfaceArea + '\n';
     }
 
     //this class is in charge of instantiating a new country
     public static class CountryBuilder {
-    //Same attributes as the Country class
+        //Same attributes as the Country class
         private String code;
-        private  String name;
+        private String name;
         private Continent continent;
         private String headOfState;
         private double surfaceArea;
 
-       //the code and name parameters are necessary when creating the country
-        public CountryBuilder(String code ,String name){
-           this.code = code;
-           this.name = name;
-
-       }
+        //
+        public CountryBuilder(String code, String name, Continent continent, double surfaceArea, String headOfState) {
+            this.code = code;
+            this.name = name;
+            this.continent = continent;
+            this.headOfState = headOfState;
+            this.surfaceArea = surfaceArea;
+        }
 
         /**
-         *SETTERS
+         * SETTERS
          */
-       public  CountryBuilder setCode(String code) {
+        public CountryBuilder setCode(String code) {
             this.code = code;
             return this;
         }
@@ -113,10 +116,10 @@ public class Country {
         }
 
 
-    //returns the country object with values set
-        public Country build(){
+        //returns the country object with values set
+        public Country build() {
 
-            return  new Country(this);
+            return new Country(this);
         }
 
     }

@@ -16,7 +16,7 @@ public class Main {
 //        System.out.println(country);
       Menu menu = new Menu();
      menu.runMenu();
-
+    //menu.getHeadOfStateFromUser();
 
 
 

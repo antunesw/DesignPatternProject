@@ -152,8 +152,11 @@ public class Menu {
     }
 
     public void getCountryByCode() {
-        String code = getCodeFromUser();
-        Country country = countryDAO.getCountryByCode(code);
+        System.out.println("Type in Country Code: ");
+       String countryCode = checkUserInput();
+
+      //  String code = getCodeFromUser();
+        Country country = countryDAO.getCountryByCode(countryCode);
         if (country != null) {
             System.out.println(country.toString());
         } else {
@@ -166,81 +169,77 @@ public class Menu {
         System.out.println("##ADD a new country to the database###");
 
         String code = getCodeFromUser();
+
         String name = getCountryNameFromUser();
         Double surfaceArea = getSANameFromUser();
-        Continent continent = getContinentFromUser();
         String headOfState = getHeadOfStateFromUser();
+        Continent continent = getContinentFromUser();
 
-        Country.CountryBuilder countryBuilder = new Country.CountryBuilder(code, name);
-        if (surfaceArea == null){
-            countryBuilder.setHeadOfState("UNKNOWN");
-        }
-        if (continent == null){
-            countryBuilder.setContinent(Continent.valueOf("ASIA"));
-        }if (headOfState == null){
-            countryBuilder.setHeadOfState("WILL");
-        }
+        Country.CountryBuilder countryBuilder = new Country.CountryBuilder(code, name,continent,surfaceArea,headOfState);
+
+
         countryDAO.saveCountryInToDB(countryBuilder.build());
         runMenu();
 
     }
 
+    //getting the head of state's name from the user and validating it
     public String getHeadOfStateFromUser() {
-        String headOfState = "";
-        String headOfStateInput;
+
         System.out.println("Type in Head of State's name ");
-        headOfStateInput = input.nextLine().replaceAll("", " ");
-        while (!headOfStateInput.matches("[A-Za-z' ]+")) {
-            System.out.println("Please Enter a valid input");
-            System.out.println("Head of state: ");
-            headOfStateInput = input.nextLine();
+       String headOfState = checkUserInput();
+       while (!headOfState.matches("[A-Za-z]+")){
+
+           System.out.println("Not Valid Please try again: ");
+           getHeadOfStateFromUser();
         }
+
         return headOfState;
     }
 
-    public double getSANameFromUser() {
-        System.out.println("Type in surface area ");
-        double area = 0;
-        boolean exit = false;
+        //getting surface area from user and doing some validation
+        public double getSANameFromUser() {
+        System.out.println("Type in surface Area: ");
 
-        try {
-            while (!exit) {
+        String countryArea = checkUserInput();
 
+        while (!countryArea.matches("[0-9]+")) {
 
-                area = Double.parseDouble(input.nextLine().replaceAll(" ", ""));
-                exit = true;
-            }
-        } catch (NumberFormatException e) {
-            System.out.println("integer and floating point numbers only ");
-
+            System.out.println("Not Valid input type again: ");
+            getSANameFromUser();
         }
-        return area;
+        return Double.parseDouble(countryArea);
+
     }
-
+    //getting Code from user and checking if it matches the validation set in codeValidation method
     public String getCodeFromUser() {
-        System.out.println("Type in Country Code: ");
-        String countryCode = input.nextLine();
-        boolean check= codeValidation(countryCode);
-        while (!check){
-            System.out.println("Invalid input ");
-            runMenu();
 
+        System.out.println("Type in Country Code: ");
+
+        String countryCode;
+        countryCode = checkUserInput();
+        boolean check = codeValidation(countryCode);
+        getCountryByCode();
+        while (!check){
+            System.out.println("Invalid input must be 3 char long ");
+
+            getCodeFromUser();
         }
         return countryCode;
 
-    }
-
+   }
+    //getting continent name from user
     public Continent getContinentFromUser() {
         Continent continent = null;
         String continentInput;
         System.out.println("Enter Continent");
         try {
-            continentInput = input.nextLine().toUpperCase().replace(" ", "_");
+            continentInput = checkUserInput().toUpperCase().replaceAll(" ","");
             continent = Continent.valueOf(continentInput);
 
         } catch (Exception e) {
             System.out.println(e);
-            runMenu();
+            getContinentFromUser();
         }
 
 
@@ -250,21 +249,30 @@ public class Menu {
     public String getCountryNameFromUser() {
 
         System.out.println("Enter the country name ");
-        String countryName = null;
+        String countryName = checkUserInput();
 
-
-        try {
-
-
-            countryName = input.nextLine().replaceAll(" ", "");
-
-
-        } catch (Exception e) {
-            System.out.println(e);
+        if(countryName != null){
+            if (countryName.matches("[A-Za-z ]+")){
+                    return countryName;
+            }
         }
-        return countryName;
+
+        return getCountryNameFromUser();
     }
 
+    public   String checkUserInput(){
+         String validate ;
+
+        try {
+            validate = input.nextLine();
+            return validate;
+
+        }catch (Exception e){
+            e.printStackTrace();
+            checkUserInput();
+        }
+            return checkUserInput();
+    }
     public static boolean codeValidation(String code) {
 
             if ( code.length() != 3) {

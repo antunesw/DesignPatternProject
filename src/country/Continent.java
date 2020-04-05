@@ -7,13 +7,13 @@ package country;
 
 public enum Continent {
 
-    AFRICA ("AFRICA"),
-    ANTARCTICA("ANTARCTICA"),
-    ASIA("ASIA"),
-    EUROPE("EUROPE"),
-    NORTH_AMERICA("NORTH AMERICA"),
-    SOUTH_AMERICA("SOUTH AMERICA"),
-    OCEANIA("OCEANIA");
+    AFRICA ("Africa"),
+    ANTARCTICA("Antarctica"),
+    ASIA("Asia"),
+    EUROPE("Europe"),
+    NORTH_AMERICA("North America"),
+    SOUTH_AMERICA("South America"),
+    OCEANIA("Oceania");
 
     private final String continent;
 

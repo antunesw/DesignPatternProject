@@ -17,7 +17,7 @@ public class MySQLCountryDAO implements CountryDAO {
     String code = "";
     String name = "";
     String headOfState = "";
-    double surfaceArea = 0.0;
+    double surfaceArea = 0;
 
 
     @Override
@@ -43,7 +43,7 @@ public class MySQLCountryDAO implements CountryDAO {
                 surfaceArea = rs.getDouble(4);
                 continent = Continent.valueOf(rs.getString(3).replace(" ", "_").toUpperCase());
             //country object is built
-                Country.CountryBuilder cBuilder = new Country.CountryBuilder(code, name).setContinent(continent).setHeadOfState(headOfState).setSurfaceArea(surfaceArea);
+                Country.CountryBuilder cBuilder = new Country.CountryBuilder(code, name,continent).setContinent(continent).setHeadOfState(headOfState).setSurfaceArea(surfaceArea);
               // country object is added to the ArrayList
                 countriesList.add(cBuilder.build());
             }
@@ -78,7 +78,7 @@ public class MySQLCountryDAO implements CountryDAO {
                 continent = Continent.valueOf(rs.getString(3).replace(" ", "_").toUpperCase());
 
                 //country object is built
-                Country.CountryBuilder cBuilder = new Country.CountryBuilder(code, countryName).setContinent(continent).setHeadOfState(headOfState).setSurfaceArea(surfaceArea);
+                Country.CountryBuilder cBuilder = new Country.CountryBuilder(code, countryName,continent).setContinent(continent).setHeadOfState(headOfState).setSurfaceArea(surfaceArea);
                 // country object is added to the ArrayList
                 countriesList.add(cBuilder.build());
             }
@@ -116,7 +116,7 @@ public class MySQLCountryDAO implements CountryDAO {
                 continent = Continent.valueOf(rs.getString(3).replace(" ", "_").toUpperCase());
 
                 //country object is built
-                Country.CountryBuilder cBuilder = new Country.CountryBuilder(code, name).setContinent(continent).setHeadOfState(headOfState).setSurfaceArea(surfaceArea);
+                Country.CountryBuilder cBuilder = new Country.CountryBuilder(code, name,continent).setContinent(continent).setHeadOfState(headOfState).setSurfaceArea(surfaceArea);
                 //Country object is returned
                 return cBuilder.build();
             } else {
