@@ -146,11 +146,17 @@ public class Menu {
     }
 
     public void saveCountryInToDB() {
+        System.out.println("##ADD a new country to the database###");
 
         String code = getCodeFromUser();
         String name = getCountryNameFromUser();
-        // String headOfState =
-        //    String surfaceArea ="";
+        Double surfaceArea = getSANameFromUser();
+        Continent continent = getContinentFromUser();
+        String headOfState = getHeadOfStateFromUser();
+
+        Country.CountryBuilder countryBuilder = new Country.CountryBuilder(code,name);
+
+        countryDAO.saveCountryInToDB(countryBuilder.build());
 
 
     }
@@ -164,6 +170,18 @@ public class Menu {
 //    String headOfState;
 //    float surfaceArea;
 
+    public String getHeadOfStateFromUser(){
+         String headOfState = "";
+        String headOfStateInput;
+         System.out.println("Type in Head of State's name ");
+         headOfStateInput = input.nextLine().replaceAll(""," ");
+        while (!headOfStateInput.matches("[A-Za-z' ]+")) {
+            System.out.println("Please Enter a valid input");
+            System.out.println("Head of state: ");
+            headOfStateInput = input.nextLine();
+        }
+        return  headOfState;
+    }
     public double getSANameFromUser() {
         System.out.println("Type in surface area ");
         double area = 0;
@@ -184,34 +202,44 @@ public class Menu {
     }
 
     public String getCodeFromUser() {
-        boolean exit = false;
         System.out.println("Type in Country Code between 1 to 3 char");
         String countryCode = "";
 
         try {
 
-            while (!exit) {
-                //if()else please validate for many letters try to do itcountryCode = input.nextLine().replaceAll(" ", "");
+            //if()else please validate for many letters try to do itcountryCode = input.nextLine().replaceAll(" ", "");
                 if (countryCode.length() > 0 || countryCode.length() < 3) {
                     countryCode = input.nextLine().replaceAll(" ", "");
-                    exit = true;
-                } else {
-                    System.out.println("1 to 3 characters input only");
-                    runMenu();
-                }
-            }
-        } catch (Exception e) {
+
+                    if (countryCode.matches("[A-Za-z0-9]+")) {
+                        return countryCode;
+                    }
+                }else{getCodeFromUser();}
+    }catch (Exception e){
+            System.out.println("1 to 3 characters input only");
+
+            getCodeFromUser();
+
             System.out.println(e);
         }
-        return countryCode;
+    return null;
     }
 
     public Continent getContinentFromUser() {
+        Continent continent = null;
+        String continentInput;
+        System.out.println("Enter Continent");
+        try {
+            continentInput = input.nextLine().toUpperCase().replace(" ","_");
+            continent = Continent.valueOf(continentInput);
 
-        Continent continet = null;
+        }catch (Exception e){
+            System.out.println(e);
+            runMenu();
+        }
 
 
-        return continet;
+        return continent;
     }
 
     public String getCountryNameFromUser() {

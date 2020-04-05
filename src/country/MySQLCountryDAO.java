@@ -8,8 +8,13 @@ import java.util.ArrayList;
 
 public class MySQLCountryDAO implements CountryDAO {
 
-
     DB_Connect db = DB_Connect.getInstance();
+    Continent continent;
+    String code = "";
+    String name = "";
+    String headOfState = "";
+    double surfaceArea = 0.0;
+
 
     @Override
     public ArrayList<Country> getListOfCountries() {
@@ -18,12 +23,7 @@ public class MySQLCountryDAO implements CountryDAO {
 
         String query = "SELECT * FROM country";
 
-        Continent continent;
-        String code = "";
-        String name = "";
-        String headOfState = "";
-        double surfaceArea = 0.0;
-        Country country = null;
+
         try {
             ResultSet rs = db.select(query);
 
@@ -38,7 +38,7 @@ public class MySQLCountryDAO implements CountryDAO {
                 surfaceArea = rs.getDouble(4);
                 continent = Continent.valueOf(rs.getString(3).replace(" ", "_").toUpperCase());
 
-                Country.CountryBuilder cBuilder = new Country.CountryBuilder().setContinent(continent).setCode(code).setHeadOfState(headOfState).setName(name).setSurfaceArea(surfaceArea);
+                Country.CountryBuilder cBuilder = new Country.CountryBuilder(code,name).setContinent(continent).setHeadOfState(headOfState).setSurfaceArea(surfaceArea);
                 countriesList.add(cBuilder.build());
             }
 
@@ -56,11 +56,6 @@ public class MySQLCountryDAO implements CountryDAO {
 
         String query = "SELECT * FROM country WHERE Name LIKE '%" + countryName + "%';";
 
-        String name="";
-        Continent continent;
-        String code = "";
-        String headOfState = "";
-        double surfaceArea = 0.0;
         try {
             ResultSet rs = db.select(query);
 
@@ -74,7 +69,7 @@ public class MySQLCountryDAO implements CountryDAO {
                 surfaceArea = rs.getDouble(4);
                 continent = Continent.valueOf(rs.getString(3).replace(" ", "_").toUpperCase());
 
-                Country.CountryBuilder cBuilder = new Country.CountryBuilder().setContinent(continent).setCode(code).setHeadOfState(headOfState).setName(name).setSurfaceArea(surfaceArea);
+                Country.CountryBuilder cBuilder = new Country.CountryBuilder(code,countryName).setContinent(continent).setHeadOfState(headOfState).setSurfaceArea(surfaceArea);
                 countriesList.add(cBuilder.build());
             }
         } catch (SQLException e) {
@@ -93,10 +88,6 @@ public class MySQLCountryDAO implements CountryDAO {
 
         String query = "SELECT * FROM country WHERE Code LIKE '%" + code + "%';";
 
-        Continent continent;
-        String name = "";
-        String headOfState = "";
-        double surfaceArea = 0.0;
         try {
             ResultSet rs = db.select(query);
 
@@ -110,7 +101,7 @@ public class MySQLCountryDAO implements CountryDAO {
                 surfaceArea = rs.getDouble(4);
                 continent = Continent.valueOf(rs.getString(3).replace(" ", "_").toUpperCase());
 
-                Country.CountryBuilder cBuilder = new Country.CountryBuilder().setContinent(continent).setCode(code).setHeadOfState(headOfState).setName(name).setSurfaceArea(surfaceArea);
+                Country.CountryBuilder cBuilder = new Country.CountryBuilder(code,name).setContinent(continent).setHeadOfState(headOfState).setSurfaceArea(surfaceArea);
                 return cBuilder.build();
             } else {
                 return null;
@@ -125,7 +116,14 @@ public class MySQLCountryDAO implements CountryDAO {
     @Override
     public boolean saveCountryInToDB(Country country) {
 
+        code= country.getCode();
+        name = country.getName();
+       continent = country.getContinent();
+       surfaceArea = country.getSurfaceArea();
+       headOfState = country.getHeadOfState();
 
-        return false;
+        //INSERT QUERY is executed if everything goes well it returns true if not false
+        return db.saveData("INSERT INTO country (code, name, continent, surfaceArea, headOfState)" +
+                " VALUES ('" + code + "', '" + name + "', '" + continent + "', '" + surfaceArea + "', '" + headOfState + "');");
     }
 }

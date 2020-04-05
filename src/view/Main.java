@@ -1,5 +1,7 @@
 package view;
 
+import country.MySQLCountryDAO;
+
 import java.sql.Connection;
 import java.sql.Statement;
 
@@ -14,12 +16,9 @@ public class Main {
 //        System.out.println(country);
       Menu menu = new Menu();
      menu.runMenu();
-//      menu.printMenuHeader();
-//       menu.printMenu();
 
-       // menu.printListOfCountries();
-////        MySQLCountryDAO test = new MySQLCountryDAO();
-////        System.out.println(test.getCountry());
+
+
 
     }
 }

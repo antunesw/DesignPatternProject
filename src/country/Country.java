@@ -18,14 +18,12 @@ public class Country {
     private double surfaceArea;
 
     /**
-     * Class class constructor with the following parameters
-     * @param code
-     * @param name
-     * @param headOfState
-     * @param surfaceArea
+     *
+     * @param countryBuilder
      */
+
     private Country(CountryBuilder countryBuilder) {
-      // super();
+
         this.code = countryBuilder.code;
         this.name = countryBuilder.name;
         this.headOfState = countryBuilder.headOfState;
@@ -80,6 +78,11 @@ public class Country {
         private String headOfState;
         private double surfaceArea;
 
+       public CountryBuilder(String code ,String name){
+           this.code = code;
+           this.name = name;
+
+       }
         public  CountryBuilder setCode(String code) {
             this.code = code;
             return this;
