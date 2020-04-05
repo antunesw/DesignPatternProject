@@ -1,5 +1,10 @@
 package country;
 
+/**
+ * @Author Willian Antunes de Sousa
+ */
+// Enum class to ensure continent values are corresponded to those ones found in the databse
+
 public enum Continent {
 
     AFRICA ("AFRICA"),
@@ -10,19 +15,15 @@ public enum Continent {
     SOUTH_AMERICA("SOUTH AMERICA"),
     OCEANIA("OCEANIA");
 
-    private final String message;
+    private final String continent;
 
-        Continent(String message){
-            this.message = message;
+        Continent(String continent){
+            this.continent = continent;
         }
 
     @Override
     public String toString() {
-        return this.message;
+        return this.continent;
     }
-
-//        public static Continent getEnum(String  continentString){
-//            for
-//        }
 
 }

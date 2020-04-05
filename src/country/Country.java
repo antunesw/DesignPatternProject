@@ -17,11 +17,8 @@ public class Country {
     private String headOfState;
     private double surfaceArea;
 
-    /**
-     *
-     * @param countryBuilder
-     */
 
+    //private constructor that makes sure a country will be created through the countryBuilder
     private Country(CountryBuilder countryBuilder) {
 
         this.code = countryBuilder.code;
@@ -30,7 +27,7 @@ public class Country {
         this.surfaceArea = countryBuilder.surfaceArea;
         this.continent = countryBuilder.continent;
     }
-    /**GETTERS AND SETTERS
+    /**GETTERS
      *
      */
     public String getCode() {
@@ -70,20 +67,26 @@ public class Country {
                 " surfaceArea= " + surfaceArea +'\n' ;
     }
 
+    //this class is in charge of instantiating a new country
     public static class CountryBuilder {
-
+    //Same attributes as the Country class
         private String code;
         private  String name;
         private Continent continent;
         private String headOfState;
         private double surfaceArea;
 
-       public CountryBuilder(String code ,String name){
+       //the code and name parameters are necessary when creating the country
+        public CountryBuilder(String code ,String name){
            this.code = code;
            this.name = name;
 
        }
-        public  CountryBuilder setCode(String code) {
+
+        /**
+         *SETTERS
+         */
+       public  CountryBuilder setCode(String code) {
             this.code = code;
             return this;
         }
@@ -110,7 +113,7 @@ public class Country {
         }
 
 
-
+    //returns the country object with values set
         public Country build(){
 
             return  new Country(this);
